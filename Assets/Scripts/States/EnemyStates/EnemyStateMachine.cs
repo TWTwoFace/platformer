@@ -5,9 +5,8 @@ using UnityEngine;
 public class EnemyStateMachine : MonoBehaviour
 {
     private EnemyMovement _enemyMovement;
-    private Dictionary<Type, IState> _enemyBehaviours;
-    private IState _currentState;
-    private Transform _updateParam = null;
+    private Dictionary<Type, IEnemyState> _enemyBehaviours;
+    private IEnemyState _currentState;
 
     private void Awake()
     {
@@ -22,29 +21,28 @@ public class EnemyStateMachine : MonoBehaviour
 
     private void Update()
     {
-        _currentState?.Update(_updateParam);
+        _currentState?.Update();
     }
 
     private void InitStates()
     {
-        _enemyBehaviours = new Dictionary<Type, IState>();
+        _enemyBehaviours = new Dictionary<Type, IEnemyState>();
         _enemyBehaviours[typeof(EnemyBehaviourPatrol)] = new EnemyBehaviourPatrol(_enemyMovement);
         _enemyBehaviours[typeof(EnemyBehaviourCloser)] = new EnemyBehaviourCloser(_enemyMovement);
         _enemyBehaviours[typeof(EnemyBehaviourAttack)] = new EnemyBehaviourAttack();
     }
 
-    private void SetBehaviour(IState behaviour)
+    private void SetBehaviour(IEnemyState behaviour)
     {
         if (_currentState != null)
         {
             _currentState.Exit();
-            _updateParam = null;
         }
         _currentState = behaviour;
         _currentState.Enter();
     }
 
-    private IState GetBehaviour<T>() where T : IState
+    private IEnemyState GetBehaviour<T>() where T : IEnemyState
     {
         var type = typeof(T);
         return _enemyBehaviours[type];
@@ -61,12 +59,14 @@ public class EnemyStateMachine : MonoBehaviour
         var behaviour = GetBehaviour<EnemyBehaviourPatrol>();
         SetBehaviour(behaviour);
     }
+
     public void SetCloserBehaviour(Transform player)
     {
+        _enemyBehaviours[typeof(EnemyBehaviourCloser)] = new EnemyBehaviourCloser(_enemyMovement, player);
         var behaviour = GetBehaviour<EnemyBehaviourCloser>();
         SetBehaviour(behaviour);
-        _updateParam = player;
     }
+
     public void SetAttackBehaviour()
     {
         var behaviour = GetBehaviour<EnemyBehaviourAttack>();

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyBehaviourAttack : IState
+public class EnemyBehaviourAttack : IEnemyState
 {
     public void Enter()
     {
@@ -12,7 +12,7 @@ public class EnemyBehaviourAttack : IState
         Debug.Log("Attack exit");
     }
 
-    public void Update(Transform obj = null)
+    public void Update()
     {
         Debug.Log("Attack exit");
     }

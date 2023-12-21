@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyBehaviourPatrol : IState
+public class EnemyBehaviourPatrol : IEnemyState
 {
     private EnemyMovement _enemyMovement;
     public EnemyBehaviourPatrol(EnemyMovement enemyMovement)
@@ -19,7 +19,7 @@ public class EnemyBehaviourPatrol : IState
     }
 
 
-    public void Update(Transform obj = null)
+    public void Update()
     {
         Debug.Log("Patrol updates");
         _enemyMovement.Patrol();

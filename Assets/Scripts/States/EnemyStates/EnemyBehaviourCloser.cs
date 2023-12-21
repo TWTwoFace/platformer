@@ -1,11 +1,13 @@
 using UnityEngine;
 
-public class EnemyBehaviourCloser : IState
+public class EnemyBehaviourCloser : IEnemyState
 {
     private EnemyMovement _enemyMovement;
-    public EnemyBehaviourCloser(EnemyMovement enemyMovement)
+    private Transform _playerTransform;
+    public EnemyBehaviourCloser(EnemyMovement enemyMovement, Transform playerTransform = null)
     {
         _enemyMovement = enemyMovement;
+        _playerTransform = playerTransform;
     }
     public void Enter()
     {
@@ -17,9 +19,10 @@ public class EnemyBehaviourCloser : IState
         Debug.Log("Closer exit");
     }
 
-    public void Update(Transform obj = null)
+    public void Update()
     {
         Debug.Log("Closer updates");
-        _enemyMovement.GetCloserToPlayer(obj);
+        if(_playerTransform != null)
+            _enemyMovement.GetCloserToPlayer(_playerTransform);
     }
 }

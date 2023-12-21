@@ -1,11 +1,11 @@
 
 using UnityEngine;
 
-public interface IState
+public interface IEnemyState
 {
     public void Enter();
     
     public void Exit();
 
-    public void Update(Transform obj = null);
+    public void Update();
 }

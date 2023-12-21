@@ -10,7 +10,6 @@ public class PlayerDetection : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("q");
         if(collision.TryGetComponent<PlayerStats>(out var player))
         {
             _ESM.SetCloserBehaviour(collision.gameObject.GetComponent<Transform>());
