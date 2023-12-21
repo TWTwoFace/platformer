@@ -7,7 +7,7 @@ public class DoubleJump : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<PlayerStats>(out PlayerStats player))
         {
-            player.ChangeJumps(_jumpsCount);
+            player.ChangeExtraJumps(_jumpsCount);
         }
         Destroy(this.gameObject);
     }

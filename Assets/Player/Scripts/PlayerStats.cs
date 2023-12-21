@@ -2,10 +2,12 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    
     [SerializeField] private int _countOfJumps;
+    [SerializeField] private int _countExtraJumps;
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
-
+    [Space]
     [SerializeField] private float _minSpeed;
     [SerializeField] private float _maxSpeed;
 
@@ -14,9 +16,9 @@ public class PlayerStats : MonoBehaviour
         return _speed;
     }
 
-    public int getCountOfJumps()
+    public int getCountOfExtraJumps()
     {
-        return _countOfJumps;
+        return _countExtraJumps;
     }
     
     public float getJumpForce()
@@ -27,8 +29,8 @@ public class PlayerStats : MonoBehaviour
     {
         _speed = Mathf.Clamp(newSpeed, _minSpeed, _maxSpeed);
     }
-    public void ChangeJumps(int count)
+    public void ChangeExtraJumps(int count)
     {
-        _countOfJumps = Mathf.Clamp(count, 1, 3);
+        _countExtraJumps = Mathf.Clamp(count, 0, 1);
     }
 }

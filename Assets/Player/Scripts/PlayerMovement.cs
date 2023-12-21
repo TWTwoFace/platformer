@@ -35,19 +35,19 @@ public class PlayerMovement : MonoBehaviour
     {
         x = context.ReadValue<float>();
     }
-
+    
     public void OnJump(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            if (_playerStats.getCountOfJumps() > 1)
+            if (IsGrounded())
             {
                 _rb.AddForce(Vector2.up * _playerStats.getJumpForce(), ForceMode2D.Impulse);
-                _playerStats.ChangeJumps(_playerStats.getCountOfJumps() - 1);
             }
-            else if (IsGrounded())
+            else if (_playerStats.getCountOfExtraJumps() > 0 && !IsGrounded())
             {
                 _rb.AddForce(Vector2.up * _playerStats.getJumpForce(), ForceMode2D.Impulse);
+                _playerStats.ChangeExtraJumps(_playerStats.getCountOfExtraJumps() - 1);
             }
         }
     }
